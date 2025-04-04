@@ -1,58 +1,41 @@
-import { Note } from '@/services/noteService';
-import {
-  ListWrapper,
-  Header,
-  CreateButton,
-  NoteItem,
-  NoteTitle,
-  NoteMeta,
-  Tag,
-  DeleteIcon
-} from './styles';
+import { Note } from '@/interfaces/Note';
+import NoteCard from '@/components/molecules/NoteCard';
+import { ListContainer, Header, CreateButton } from './styles';
+import { useTranslation } from 'react-i18next';
 
 interface NotesListProps {
   notes: Note[];
-  onCreate: () => void;
-  onSelect: (note: Note) => void;
-  onDelete: (id: string) => void;
   selectedNote: Note | null;
+  onSelect: (note: Note) => void;
+  onCreate: () => void;
+  onDelete: (id: string) => void;
 }
 
 export default function NotesList({
   notes,
-  onCreate,
+  selectedNote,
   onSelect,
-  onDelete,
-  selectedNote
+  onCreate,
+  onDelete
 }: NotesListProps) {
+
+  const { t } = useTranslation();
+
   return (
-    <ListWrapper>
+    <ListContainer>
       <Header>
-        <CreateButton onClick={onCreate}>+ Create new note</CreateButton>
+        <CreateButton onClick={onCreate}>+ {t('create')}</CreateButton>
       </Header>
 
       {notes.map((note) => (
-        <NoteItem
-          key={note.id}
-          selected={selectedNote?.id === note.id}
+        <NoteCard
+          key={`${note.id}-${note.title}`}
+          note={note}
+          active={selectedNote?.id === note.id}
           onClick={() => onSelect(note)}
-        >
-          <DeleteIcon
-            onClick={(e) => {
-              e.stopPropagation(); // evita selecionar a nota ao clicar no ícone
-              onDelete(note.id);
-            }}
-          >
-            🗑️
-          </DeleteIcon>
-          <NoteTitle>{note.title}</NoteTitle>
-          <NoteMeta>
-            <Tag>Paris</Tag>
-            <Tag>Hotel</Tag>
-            <span>just now</span>
-          </NoteMeta>
-        </NoteItem>
+          onDelete={() => onDelete(note.id)}
+        />
       ))}
-    </ListWrapper>
+    </ListContainer>
   );
 }

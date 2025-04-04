@@ -1,5 +1,6 @@
 import { FormEvent } from 'react';
 import { Form, Input, Button } from './styles';
+import { useTranslation } from 'react-i18next';
 
 interface NoteFormProps {
   title: string;
@@ -16,6 +17,9 @@ export default function NoteForm({
   setDescription,
   onSubmit
 }: NoteFormProps) {
+
+  const { t } = useTranslation();
+
   return (
     <Form onSubmit={onSubmit}>
       <Input
@@ -28,7 +32,7 @@ export default function NoteForm({
         value={description}
         onChange={(e) => setDescription(e.target.value)}
       />
-      <Button type="submit">Add Note</Button>
+      <Button type="submit">{t('Add Note')}</Button>
     </Form>
   );
 }

@@ -1,83 +1,46 @@
 // src/services/noteService.ts
-export interface Note {
-  id: string;
-  title: string;
-  description: string;
-  archived?: boolean;
+import mockNotes from '../../public/data/mockNotes.json'
+import { Note } from '@/interfaces/Note';
+
+const NOTES_KEY = 'notes';
+
+export function readNotes(callback: (notes: Note[]) => void) {
+  const stored = localStorage.getItem(NOTES_KEY);
+  if (stored) {
+    callback(JSON.parse(stored));
+  } else {
+    const notesWithUUID = mockNotes.map((note) => ({
+      ...note,
+      id: crypto.randomUUID(),
+    }));
+    localStorage.setItem(NOTES_KEY, JSON.stringify(notesWithUUID));
+    callback(notesWithUUID);
+  }
 }
 
-let notes: Note[] = [];
+export function insertNote(note: Note) {
+  const stored = localStorage.getItem(NOTES_KEY);
+  const notes = stored ? JSON.parse(stored) : [];
+  notes.unshift(note);
+  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+}
 
-export const insertNote = (note: Note) => {
-  notes.push(note);
-  console.log('Nota inserida:', note);
-};
+export function updateNote(note: Note) {
+  const stored = localStorage.getItem(NOTES_KEY);
+  if (!stored) return;
+  const notes = JSON.parse(stored).map((n: Note) => (n.id === note.id ? note : n));
+  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+}
 
-export const readNotes = (onLoad: (notes: Note[]) => void) => {
-  console.log('Lendo notas...');
-  onLoad([...notes]);
-};
-
-export const deleteNote = (id: string) => {
-  notes = notes.filter((note) => note.id !== id);
-  console.log('Nota deletada:', id);
-};
-
-export const updateNote = (updatedNote: Note) => {
-  notes = notes.map((note) =>
-    note.id === updatedNote.id ? updatedNote : note
-  );
-  console.log('Nota atualizada:', updatedNote);
-};
+export function deleteNote(id: string) {
+  const stored = localStorage.getItem(NOTES_KEY);
+  if (!stored) return;
+  const notes = JSON.parse(stored).filter((note: Note) => note.id !== id);
+  localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+}
 
 
-
-/* Estrutura para banco de dados
-
-import { database } from './firebase';
-import {
-  ref,
-  set,
-  push,
-  onValue,
-  remove,
-  child,
-  get,
-  DataSnapshot,
-  off
-} from 'firebase/database';
- 
-const NOTES_PATH = 'notes/';
-
-export const insertNote = (note: Note) => {
-  const noteRef = ref(database, `${NOTES_PATH}${note.id}`);
-  return set(noteRef, note);
-};
-
-export const readNotes = (onLoad: (notes: Note[]) => void) => {
-  const notesRef = ref(database, NOTES_PATH);
-
-  onValue(notesRef, (snapshot: DataSnapshot) => {
-    if (!snapshot.exists()) {
-      console.log('Nenhuma nota encontrada.');
-      onLoad([]);
-      return;
-    }
-  
-    const data = snapshot.val();
-    const notes = Object.values(data) as Note[];
-    console.log('Notas carregadas:', notes);
-    onLoad(notes);
-  });
-};
-
-export const deleteNote = (id: string) => {
-  const noteRef = ref(database, `${NOTES_PATH}${id}`);
-  return remove(noteRef);
-};
-
-export const updateNote = (note: Note) => {
-  const noteRef = ref(database, `${NOTES_PATH}${note.id}`);
-  return set(noteRef, note);
-};
-*/
+export const getAllTags = (notes: Note[]): string[] => {
+  const allTags = notes.flatMap(note => note.tags || []);
+  return [...new Set(allTags)];
+}

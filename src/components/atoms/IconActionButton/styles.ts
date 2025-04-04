@@ -1,4 +1,3 @@
-// src/components/atoms/ButtonIcon/styles.ts
 import styled from 'styled-components';
 
 export const IconButton = styled.button`
@@ -9,20 +8,18 @@ export const IconButton = styled.button`
 
   height: 38px;
   padding: 0 10px;
-  max-width: 38px;
+  max-width: 20px;
   background-color: #f2f2f7;
-  border: none;
   border-radius: 8px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
   color: #1c1c1e;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.3s ease;
 
-  & > span:first-child {
-    font-size: 24px;
-    transition: font-size 0.3s ease;
+  svg {
+    font-size: 16px;
   }
 
   &:hover {
@@ -30,11 +27,7 @@ export const IconButton = styled.button`
     background-color: #e5e5ea;
   }
 
-  &:hover > span:first-child {
-    font-size: 16px;
-  }
-
-  &:hover span:last-child {
+  &:hover span {
     opacity: 1;
     transform: translateX(0);
   }
@@ -43,7 +36,5 @@ export const IconButton = styled.button`
 export const IconLabel = styled.span`
   opacity: 0;
   transform: translateX(-8px);
-  font-size: 10px;
-  font-weight: 400;
   transition: all 0.2s ease;
 `;

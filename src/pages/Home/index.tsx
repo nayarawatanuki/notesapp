@@ -1,76 +1,132 @@
 import { useEffect, useState } from 'react';
-import { Note, insertNote, readNotes, deleteNote, updateNote } from '@/services/noteService';
+import { Note } from '@/interfaces/Note';
+import { Filter } from '@/interfaces/Filter';
+import {
+  insertNote,
+  readNotes,
+  deleteNote,
+  updateNote,
+  getAllTags,
+} from '@/services/noteService';
+
+import NotesHeader from '@/components/organisms/NotesHeader';
 import Sidebar from '@/components/organisms/Sidebar';
 import NotesList from '@/components/organisms/NotesList';
-import NoteContent from '@/components/organisms/NoteContent';
+import NotesContent from '@/components/organisms/NotesContent';
 import ConfirmDialog from '@/components/molecules/ConfirmDialog';
-import { Container } from './styles';
 
-export default function Home() {
+import { Container, NotesHeaderArea, SidebarArea, NotesListArea, NotesContentArea } from './styles';
+import { useTranslation } from 'react-i18next';
+
+export default function HomePage() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNote, setSelectedNote] = useState<Note | null>(null);
   const [noteToDelete, setNoteToDelete] = useState<Note | null>(null);
+  const [filter, setFilter] = useState<Filter>({ type: 'all' });
+  const [tags, setTags] = useState<string[]>([]);
+  const [search, setSearch] = useState('');
+
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'pt' : 'en';
+    i18n.changeLanguage(newLang);
+  };
 
   useEffect(() => {
-    readNotes((allNotes) => {
-      const filtered = allNotes.filter((n) => !n.archived);
-      setNotes(filtered);
+    readNotes((storedNotes) => {
+      setNotes(storedNotes);
+      setTags(getAllTags(storedNotes));
     });
   }, []);
 
-  const handleCreateNote = () => {
+  const handleCreate = () => {
     const newNote: Note = {
       id: crypto.randomUUID(),
       title: 'New note',
       description: 'Start typing here...',
-      archived: false
+      archived: false,
+      tags: ['Paris', 'Hotel'],
     };
     insertNote(newNote);
-    setSelectedNote(newNote);
     setNotes((prev) => [newNote, ...prev]);
+    setSelectedNote(newNote);
+  };
+
+  const handleSave = (note: Note) => {
+    updateNote(note);
+    setNotes((prev) =>
+      prev.map((item) => (item.id === note.id ? note : item))
+    );
+    setSelectedNote(note.archived ? null : note);
   };
 
   const handleDelete = (id: string) => {
     deleteNote(id);
-    setNotes((prev) => prev.filter((n) => n.id !== id));
-    if (selectedNote?.id === id) {
-      setSelectedNote(null);
-    }
+    setNotes((prev) => prev.filter((note) => note.id !== id));
+    if (selectedNote?.id === id) setSelectedNote(null);
   };
 
-  const handleSave = (updatedNote: Note) => {
-    updateNote(updatedNote);
-    setNotes((prev) =>
-      prev.map((n) => (n.id === updatedNote.id ? updatedNote : n)).filter((n) => !n.archived)
-    );
-    setSelectedNote(updatedNote.archived ? null : updatedNote);
+  const applyFilter = (): Note[] => {
+    return notes.filter((note) => {
+      const matchesFilter =
+        (filter.type === 'archived' && note.archived) ||
+        (filter.type === 'tag' && note.tags?.includes(filter.value)) ||
+        (filter.type === 'all' && !note.archived);
+
+      const matchesSearch =
+        note.title.toLowerCase().includes(search.toLowerCase()) ||
+        note.description.toLowerCase().includes(search.toLowerCase());
+
+      return matchesFilter && matchesSearch;
+    });
   };
 
   return (
     <Container>
-      <Sidebar />
-      <NotesList
-        notes={notes}
-        onDelete={(id) => {
-          const note = notes.find(n => n.id === id);
-          if (note) setNoteToDelete(note);
-        }}
-        onCreate={handleCreateNote}
-        onSelect={setSelectedNote}
-        selectedNote={selectedNote}
-      />
-      <NoteContent
-        selectedNote={selectedNote}
-        onSave={handleSave}
-        onDelete={(id) => {
-          const note = notes.find(n => n.id === id);
-          if (note) setNoteToDelete(note);
-        }}
-      />
+
+      <SidebarArea>
+        <Sidebar filter={filter} setFilter={setFilter} tags={tags} />
+      </SidebarArea>
+
+      <NotesHeaderArea>
+        <NotesHeader
+          search={search}
+          onSearchChange={(e) => setSearch(e.target.value)}
+          onToggleLanguage={toggleLanguage}
+          currentLanguage={i18n.language as 'en' | 'pt'}
+        />
+      </NotesHeaderArea>
+
+      <NotesListArea>
+        <NotesList
+          notes={applyFilter()}
+          onCreate={handleCreate}
+          onSelect={setSelectedNote}
+          onDelete={(id) => {
+            const note = notes.find((n) => n.id === id);
+            if (note) setNoteToDelete(note);
+          }}
+          selectedNote={selectedNote}
+        />
+      </NotesListArea>
+
+      <NotesContentArea>
+        <NotesContent
+          selectedNote={selectedNote}
+          onSave={handleSave}
+          onDelete={(id) => {
+            const note = notes.find((n) => n.id === id);
+            if (note) setNoteToDelete(note);
+          }}
+        />
+      </NotesContentArea>
 
       <ConfirmDialog
         open={!!noteToDelete}
-        message={`Tem certeza que deseja excluir a nota "${noteToDelete?.title}"?`}
+        message={t('confirmDelete', {
+          title: noteToDelete?.title || '',
+        })}
         onConfirm={() => {
           if (noteToDelete) handleDelete(noteToDelete.id);
           setNoteToDelete(null);

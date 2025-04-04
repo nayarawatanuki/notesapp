@@ -1,4 +1,5 @@
-import { DialogOverlay, DialogBox, Message, Actions, Button } from './styles';
+// src/components/molecules/ConfirmDialog/index.tsx
+import { DialogOverlay, DialogBox, Message, Buttons } from './styles';
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -7,22 +8,17 @@ interface ConfirmDialogProps {
   onCancel: () => void;
 }
 
-export default function ConfirmDialog({
-  open,
-  message,
-  onConfirm,
-  onCancel
-}: ConfirmDialogProps) {
+export default function ConfirmDialog({ open, message, onConfirm, onCancel }: ConfirmDialogProps) {
   if (!open) return null;
 
   return (
     <DialogOverlay>
       <DialogBox>
         <Message>{message}</Message>
-        <Actions>
-          <Button onClick={onCancel}>Cancelar</Button>
-          <Button $variant="danger" onClick={onConfirm}>Excluir</Button>
-        </Actions>
+        <Buttons>
+          <button onClick={onCancel}>Cancelar</button>
+          <button onClick={onConfirm}>Confirmar</button>
+        </Buttons>
       </DialogBox>
     </DialogOverlay>
   );

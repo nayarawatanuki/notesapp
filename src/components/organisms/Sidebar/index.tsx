@@ -1,26 +1,45 @@
-import { SidebarContainer, Title, NavItem, NavGroup } from './styles';
-import { FaStickyNote, FaArchive, FaTags } from 'react-icons/fa';
+import { Filter } from '@/interfaces/Filter';
+import { SidebarWrapper, SectionTitle, FilterButton, TagItem } from './styles';
+import { useTranslation } from 'react-i18next';
 
-export default function Sidebar() {
+interface SidebarProps {
+  filter: Filter;
+  setFilter: React.Dispatch<React.SetStateAction<Filter>>;
+  tags: string[];
+}
+
+export default function Sidebar({ filter, setFilter, tags }: SidebarProps) {
+  const { t } = useTranslation();
+
   return (
-    <SidebarContainer>
-      <Title>NotesApp</Title>
-      <NavGroup>
-        <NavItem><FaStickyNote /> All notes</NavItem>
-        <NavItem><FaArchive /> Archived notes</NavItem>
-      </NavGroup>
+    <SidebarWrapper>
+      <SectionTitle>NotesApp</SectionTitle>
 
-      <NavGroup>
-        <NavItem><FaTags /> Travel</NavItem>
-        <NavItem><FaTags /> Paris</NavItem>
-        <NavItem><FaTags /> London</NavItem>
-        <NavItem><FaTags /> Miami</NavItem>
-        <NavItem><FaTags /> Roma</NavItem>
-        <NavItem><FaTags /> Hotel</NavItem>
-        <NavItem><FaTags /> Experience</NavItem>
-        <NavItem><FaTags /> Dinner</NavItem>
-        <NavItem><FaTags /> Food</NavItem>
-      </NavGroup>
-    </SidebarContainer>
+      <FilterButton
+        onClick={() => setFilter({ type: 'all' })}
+        $active={filter.type === 'all'}
+      >
+        📓 {t('all_notes')}
+      </FilterButton>
+
+      <FilterButton
+        onClick={() => setFilter({ type: 'archived' })}
+        $active={filter.type === 'archived'}
+      >
+        📦 {t('archived')}
+      </FilterButton>
+
+      <SectionTitle>{t('tags')}</SectionTitle>
+
+      {tags.map((tag) => (
+        <TagItem
+          key={tag}
+          onClick={() => setFilter({ type: 'tag', value: tag })}
+          $active={filter.type === 'tag' && filter.value === tag}
+        >
+          #{tag}
+        </TagItem>
+      ))}
+    </SidebarWrapper>
   );
-} 
+}

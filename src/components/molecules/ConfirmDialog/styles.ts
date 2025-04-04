@@ -1,50 +1,49 @@
+// src/components/molecules/ConfirmDialog/styles.ts
 import styled from 'styled-components';
 
 export const DialogOverlay = styled.div`
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(2px);
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 999;
+  z-index: 99;
 `;
 
 export const DialogBox = styled.div`
-  background: white;
-  color: #1c1c1e;
-  padding: 24px;
+  background: #fff;
   border-radius: 8px;
-  width: 320px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  min-width: 280px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 `;
 
 export const Message = styled.p`
   font-size: 14px;
-  margin-bottom: 20px;
-  text-align: center;
+  margin-bottom: 16px;
 `;
 
-export const Actions = styled.div`
+export const Buttons = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
-`;
+  justify-content: flex-end;
+  gap: 8px;
 
-export const Button = styled.button<{ $variant?: 'danger' }>`
-  flex: 1;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  background-color: ${({ $variant }) =>
-    $variant === 'danger' ? '#e53935' : '#e0e0e0'};
-  color: ${({ $variant }) =>
-    $variant === 'danger' ? '#fff' : '#1c1c1e'};
+  button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+  }
 
-  &:hover {
-    opacity: 0.9;
+  button:first-child {
+    background: #ddd;
+  }
+
+  button:last-child {
+    background: #fecd2f;
+    color: #1c1c1e;
+    font-weight: 600;
   }
 `;
