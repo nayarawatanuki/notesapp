@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/nayarawatanuki/notesapp/main/assets/logo.png#vitrinedev" alt="NotesApp Logo">
+  <img src="https://raw.githubusercontent.com/nayarawatanuki/notesapp/refs/heads/main/src/assets/logo.png#vitrinedev" alt="NotesApp Logo">
 </h1>
 
 ### Índice
