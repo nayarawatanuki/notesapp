@@ -15,7 +15,7 @@
 </br>
 
 ## :pencil: Descrição do Projeto
-O projeto **NotesApp** é uma aplicação web para criação e organização de anotações com sistema de arquivamento, busca, filtragem por tags e suporte à tradução (i18n). 
+O projeto **[NotesApp](https://nayarawatanuki.github.io/notesapp/)** é uma aplicação web para criação e organização de anotações com sistema de arquivamento, busca, filtragem por tags e suporte à tradução (i18n). 
 </br>O layout é baseado em um esboço cuidadosamente planejado para simular um ambiente de produtividade com 3 colunas: filtros, lista de notas e conteúdo.
 
 </br>
@@ -45,9 +45,9 @@ O projeto **NotesApp** é uma aplicação web para criação e organização de 
 
 ## :open_file_folder: Acesso ao projeto
 
-Você pode acessar o projeto online (caso publicado) ou baixá-lo localmente:
+Você pode acessar o projeto online ou baixá-lo localmente:
 
-**Online:** *[em breve]*  
+**Online:** **[NotesApp](https://nayarawatanuki.github.io/notesapp/)** 
 **Download do projeto:** [Clique aqui para baixar o ZIP](https://github.com/nayarawatanuki/notesapp/archive/refs/heads/main.zip)
 
 </br>
