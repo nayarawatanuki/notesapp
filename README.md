@@ -1,54 +1,90 @@
-# React + TypeScript + Vite
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/nayarawatanuki/notesapp/main/assets/logo.png#vitrinedev" alt="NotesApp Logo">
+</h1>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Índice
 
-Currently, two official plugins are available:
+* [:pencil: Descrição do Projeto](#pencil-descrição-do-projeto)
+* [:white_circle: Status do Projeto](#white_circle-status-do-projeto)
+* [:hammer: Funcionalidades e Demonstração da Aplicação](#hammer-funcionalidades-e-demonstração-da-aplicação)
+* [:open_file_folder: Acesso ao Projeto](#open_file_folder-acesso-ao-projeto)
+* [:rocket: Abrir e rodar o projeto](#rocket-abrir-e-rodar-o-projeto)
+* [:keyboard: Tecnologias utilizadas](#keyboard-tecnologias-utilizadas)
+* [:woman_technologist: Desenvolvedor(a) do Projeto](#woman_technologist-desenvolvedora-do-projeto)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+</br>
 
-## Expanding the ESLint configuration
+## :pencil: Descrição do Projeto
+O projeto **NotesApp** é uma aplicação web para criação e organização de anotações com sistema de arquivamento, busca, filtragem por tags e suporte à tradução (i18n). 
+</br>O layout é baseado em um esboço cuidadosamente planejado para simular um ambiente de produtividade com 3 colunas: filtros, lista de notas e conteúdo.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+</br>
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## :white_circle: Status do Projeto
+> Projeto em desenvolvimento :construction:
+
+</br>
+
+## :hammer: Funcionalidades e Demonstração da Aplicação
+
+</br>
+
+**Funcionalidades implementadas:**
+
+- Criação de novas notas
+- Edição e salvamento de notas
+- Arquivar e excluir notas
+- Filtro por notas arquivadas ou por tags
+- Busca textual em tempo real
+- Suporte a múltiplos idiomas (PT/EN)
+- Armazenamento local (`localStorage`)
+- Design responsivo baseado em grid de 3 colunas
+- Estrutura modular com padrão **Atomic Design**
+
+</br>
+
+## :open_file_folder: Acesso ao projeto
+
+Você pode acessar o projeto online (caso publicado) ou baixá-lo localmente:
+
+**Online:** *[em breve]*  
+**Download do projeto:** [Clique aqui para baixar o ZIP](https://github.com/nayarawatanuki/notesapp/archive/refs/heads/main.zip)
+
+</br>
+
+## :rocket: Abrir e rodar o projeto
+
+1. Baixe o projeto clicando no link acima;
+2. Extraia o arquivo ZIP (se necessário);
+3. No terminal, navegue até a pasta do projeto:
+```bash
+cd notesapp
+```
+4. Instale as dependências:
+```bash
+npm install
+```
+5. Rode o projeto:
+```bash
+npm run dev
+```
+6. Acesse no navegador:
+```
+http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+</br>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## :keyboard: Tecnologias utilizadas
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- React + TypeScript
+- Styled Components
+- Vite
+- i18next (para internacionalização)
+- LocalStorage API
+- Estrutura de pastas com Atomic Design
+
+</br>
+
+## :woman_technologist: Desenvolvedor(a) do Projeto
+:star: [Nayara Watanuki](https://github.com/nayarawatanuki)
