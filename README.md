@@ -47,7 +47,7 @@ O projeto **[NotesApp](https://nayarawatanuki.github.io/notesapp/)** é uma apli
 
 Você pode acessar o projeto online ou baixá-lo localmente:
 
-**Online:** **[NotesApp](https://nayarawatanuki.github.io/notesapp/)** 
+**Online:** **[NotesApp](https://nayarawatanuki.github.io/notesapp/)**</br>
 **Download do projeto:** [Clique aqui para baixar o ZIP](https://github.com/nayarawatanuki/notesapp/archive/refs/heads/main.zip)
 
 </br>
