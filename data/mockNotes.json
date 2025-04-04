@@ -1,0 +1,30 @@
+[
+    {
+        "id": "1",
+        "title": "Welcome to NotesApp",
+        "description": "Click on a note to start editing. Use the sidebar to filter by tags or archived.",
+        "archived": false,
+        "tags": ["GettingStarted"]
+    },
+    {
+        "id": "2",
+        "title": "Example Note",
+        "description": "This is an example of a regular note with tags.",
+        "archived": false,
+        "tags": ["Work", "Ideas"]
+    },
+    {
+        "id": "3",
+        "title": "Archived Sample",
+        "description": "Archived notes will show here.",
+        "archived": true,
+        "tags": ["Archive"]
+    },
+    {
+        "id": "4",
+        "title": "Hotel Quartier Latin",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent id blandit augue. Maecenas eu consequat nisl. Sed bibendum cursus nunc id varius. Mauris fringilla sed neque vitae ultrices. Donec tellus est, accumsan quis sagittis sed, aliquet nec enim. Morbi quis elementum augue. Ut imperdiet tempor interdum. Morbi aliquet, diam et posuere suscipit, urna mauris pellentesque risus, sodales finibus lectus justo tincidunt felis. Praesent lacinia sodales elit, vitae convallis magna molestie vitae. Aliquam elementum pulvinar felis eget tincidunt. Cras placerat, lectus vel pretium ornare, leo risus maximus augue, non varius libero erat facilisis orci. Phasellus dapibus imperdiet turpis, in suscipit lacus imperdiet id.",
+        "archived": false,
+        "tags": ["Paris", "Hotel"]
+    }
+]
